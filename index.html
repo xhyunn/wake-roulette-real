@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html>
+<style>
+  @font-face {font-family: 'SDCohhee'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206@1.0/SDCohhee.woff') format('woff');font-weight: normal; font-style: normal; }
+
+/*나브바*/
+.navbar { width: 100%; background-color: #dcdcdc; position: fixed;
+  top: 0; left: 0; z-index: 999;}
+
+.nav-container{ max-width: 1900px; margin: 0 auto; display: flex;
+  justify-content: space-between; align-items: center; padding: 10px 30px;}
+
+.logo img {width: 80px;}
+
+.nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  }
+
+.nav-menu li a {
+  font-family: 'SDCohhee', sans-serif;
+  font-size: 15px;
+  color: #000;
+  text-decoration: none;
+}
+
+.nav-menu li a:hover {
+  text-decoration: underline;
+}
+
+/*텍스트*/
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard Variable', sans-serif;
+    background-color: #fff;
+    color: #fff;
+  }
+  section {
+  padding: 200px 0; 
+  }
+
+  .wrap {
+    width: 1300px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .text-block {
+    white-space: pre-line;
+  }
+  .title-img {size: responsice}
+  .responsive-img {
+  width: 100%;
+  max-width: 1920px;
+  height: auto;
+  display: block;
+  margin: auto ;
+  }
+  .black-bg {background-color: #161615;}
+  .image-box {
+  position: relative;
+  }
+
+  .text-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 24px;
+  text-align: center;
+  padding: 10px;
+  }
+  .small-tt{font-size: 32pt; font-weight: 400;}
+  p{font-size: 16pt;font-weight: 200; line-height: 1.6}
+  .scroll-section {
+  padding: 200px 0;
+  text-align: center;
+  background-color: #161615;
+  color: white;
+  font-size: 24px;
+  }
+/*텍스트 페이딩*/
+.fade-text {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 1s cubic-bezier(0.25, 1, 0.5, 1)
+  }
+
+.fade-text.visible {
+  opacity: 1;
+  transform: translateY(0);
+  }
+.dot {
+  font-size: 40px;
+  color: #aaa;
+}
+/*설명 섹션*/
+.intro-section {
+  background-color: #161615;
+  color: white;
+}
+
+.image-box img {
+  width: 100%;
+  max-width: 1920px;
+  display: block;
+  margin: 0 auto;
+}
+
+.text-box {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1000px;
+  align-items: ;
+  margin: 100px auto;
+  padding: 0 20px;
+}
+.left-text h1 {
+  margin: 0;
+}
+.left-text {
+  width: 30%;
+  font-size: 48px;
+  font-weight: 1000;
+  line-height: 1.2;
+  text-align: right;
+  white-space: pre-line;
+}
+
+.right-text {
+  width: 65%;
+  font-size: 12px;
+  line-height: 2.0;
+  font-weight: 200;
+  margin: 40px 0px;
+}
+
+/*프로덕트 설명*/
+.fade-slide {
+  opacity: 0;
+  transform: translateX(-100px);
+  transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.fade-slide.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+.product-box {
+  display: flex;
+  align-items: center;
+  max-width: 1000px;
+  margin: 200px auto;
+  gap: 60px;
+}
+
+.product-img {
+  width: 70%;
+}
+
+.product-text {
+  width: 40%;
+}
+
+/*라이트박쇼*/
+.light-section {
+  position: relative;
+  padding: 700px 0;
+  overflow: hidden;
+}
+
+.light-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200%;
+  height: 100%;
+  background: radial-gradient(circle at 80% 30%, rgba(235,235,235,1), rgba(255,255,255,0) 40%);
+  opacity: 0;
+  transition: opacity 3s ease-out;
+  pointer-events: none;
+}
+
+.light-text {
+  position: relative;
+  max-width: 800px;
+  margin-left: 400px;
+  color: white;
+}
+.light-title {
+  font-size: 36pt; font-weight: 700;
+}
+
+/*위아래로 올라오는 애니메이션*/
+.design-section {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;   /* 상단 기준 정렬 */
+  gap: 100px;
+  padding: 200px 0;
+  background-color: #f1f1f1;
+}
+
+/* 공통 이미지 스타일 */
+.design-img {
+  width: 400px;
+  opacity: 0;
+  transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 아래에서 위로 */
+.left-slide {
+  transform: translateY(300px);
+  margin-top: 400px;
+  }
+
+/* 위에서 아래로 */
+.right-slide {
+  transform: translateY(-300px);
+  margin-top: 0;       /* 오른쪽은 그대로 */
+}
+
+/* 등장 시 */
+.left-slide.visible,
+.right-slide.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.right-box .design-text {
+  color: #000; margin: 40px 40px  /* 텍스트를 검정색으로 */
+}
+h2 {font-size: 24pt}
+
+.evidence-section {
+  position: relative;
+  padding: 300px 0;
+  background-color: #161615;
+}
+
+.evidence-img {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 70%;   /* 필요에 따라 조정 */
+}
+
+/*구매하기*/
+.product-display {
+  text-align: center;
+  padding: 100px 0;
+}
+
+.product-main-img {
+  width: 1000px;
+  margin-bottom: 40px;
+}
+
+.product-title h2 {
+  color: white;
+  font-size: 36pt;
+  margin-bottom: 10px;
+}
+
+.product-title p {
+  color: #aaa;
+  font-size: 14pt;
+
+}.product-options {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  background-color: #161615;
+  padding: 100px 0;
+  color: white;
+  border-top: 1px solid #333;
+}
+
+.option {
+  text-align: left;
+  padding: 0 20px;
+  border-left: 1px solid #333;
+}
+
+.option:first-child {
+  border-left: none;
+}
+
+.buy-button {
+  background-color: #1e5eff;
+  color: white;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+}
+
+.buy-button:hover {
+  text-decoration: underline;
+}
+.spacer {
+  height: 250px;}
+
+/*푸터 레터*/
+.footer-section {
+  background-color: #d9d9d9;
+  text-align: left;
+  padding: 80px 20px;
+  color: #222;
+}
+
+.footer-icons {
+  display: flex;
+  justify-content: left;
+  gap: 40px;
+  margin-bottom: 20px;
+}
+
+.footer-logo {
+  width: 400px;
+  object-fit: contain;
+}
+
+.footer-copy {
+  font-family: 'SDCohhee', sans-serif;
+  margin: 20px 0;
+  font-size: 14px;
+}
+
+.footer-desc {
+  font-size: 14px;
+  line-height: 1.8;
+  margin: 0 auto;
+  text-align: left;
+}
+.spec-list { margin-top: 50px; padding-left: 10px;font-size: 12pt;
+  line-height: 1.8; color: #ccc; max-width: 200px;]
+.spec-list li { margin-bottom: 6px;}
+</style>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css">
+  <title>Wake Roulette</title>
+</head>
+<div class="black-bg">
+  <img src="title.gif" alt="배경 이미지" class="responsive-img">
+</div>
+<body>
+  <nav class="navbar"> 
+    <div class="nav-container">
+      <div class="logo">
+        <img src="logo.png" alt="로고">
+  </div>
+  <ul class="nav-menu">
+  <li><a href="#home">Home</a></li>
+  <li><a href="#product">Product</a></li>
+  <li><a href="#mystery">??? </a></li>
+  </ul>
+</nav>
+
+<section class="black-bg" id="home">
+  <div class="image-box">
+    <img src="second-img.png" alt="배경 이미지" class="responsive-img">
+    <div class="text-overlay">
+      <h1 class="small-tt">“내일 아침, 당신은 일어날 수 있을까요?”</h1>
+      <p>성공률 20%의 도박, 당신의 하루를 걸어보세요.</p>
+    </div>
+  </div>
+</section>
+<section class="scroll-section black-bg" id="mystery">
+  <h1 class="fade-text">확실한 알람의 시대는 끝났습니다.</h1>
+  <p class="fade-text dot">.</p>
+  <p class="fade-text dot">.</p>
+  <p class="fade-text dot">.</p>
+  <p class="fade-text">똑같은 소리</p>
+  <p class="fade-text dot">.</p>
+  <p class="fade-text dot">.</p>
+  <p class="fade-text dot">.</p>
+  <p class="fade-text">똑같은 스누즈</p>
+  <p class="fade-text dot">.</p>
+  <p class="fade-text dot">.</p>
+  <p class="fade-text dot">.</p>
+  <p class="fade-text">너무 정확한 기계 속에서 우리는 무감각해졌습니다</p>
+</section>
+<section class="intro-section">
+  <div class="image-box">
+    <img src="bedroom.png" alt="침대 이미지" class="responsive-img">
+  </div>
+  <div class="text-box">
+    <div class="left-text">
+      <h1 class="small-tt">A new way<br>to wake up.<br>Or not.</h1>
+    </div>
+    <div class="right-text">
+      <p>
+        지금까지 우리는 너무 쉽게 일어났습니다. ‘알람’이란 이름을 단 작은 기계가 <br>매일같이 우리를 깨웠죠. 사실 우리는 그 알람이 울리는 줄도 모르고, 그저 <br>반사적으로 눈을 뜨고, 하품을 하고, 출근 준비를 했습니다.<br>
+        하지만 생각해본 적 있나요?
+        그 아침이 정말 ‘내 의지로 시작된 하루’였는지.<br>
+        Wake Roulette은 그 질문에서 시작된 제품입니다. 우리를 깨우는 수많은 <br>기계들 사이에서, 단 하나의 제품 이 시계는 우리의 ‘의식’을 믿기로 했습니다.
+      </p>
+    </div>
+  </div>
+</section>
+<section class="product-section black-bg">
+  <div class="product-box">
+    <img src="product.png" alt="제품 이미지" class="product-img fade-slide">
+    <div class="product-text">
+      <h2>불친절함,<br>그 자체.</h2>
+      <p>Wake Roulette에는 시간도, 히스토리도 없습니다.
+        알람이 울렸는지를 보여주는 기록도 없습니다.
+        화면에는 오직 점.
+
+        그게 다입니다.</p>
+    </div>
+  </div>
+</section>
+<section class="light-section black-bg">
+  <div class="light-overlay"></div>
+  <div class="light-text">
+  <h2> 완전한 침묵. 완전한 자각. </h2>
+  <p>
+    Wake Roulette은 아무 말도 하지 않습니다. 어떤 소리도, 진동도, 표시등도 없이 조용히 자리를 <br> 지킵니다. 당신이 눈을 뜨는 순간, 그건 알람이 울렸기 때문일 수도, 그냥 몸이 피곤하지 않아서 <br>일 수도 있습니다.<br>하지만 어쩐지, 그 침묵 속에서 무언가가 당신을 아주 조심스럽게 깨운 것 같은 기분이 듭니다. <br>그 순간, 우리는 자각합니다. 
+    <br><br>“아, 내가 깬 거구나.” 
+    <br><br>혹은… “얘가 날 깬 걸지도 몰라.”
+    <br> <br>
+    Wake Roulette은 그렇게, 당신의 아침에 조용히 개입합니다. 절대 아무 것도 하지 않으면서.
+    <br> <br>
+    당신이 깨어날 수 있다면, 그건 당신의 능력입니다.
+  </p>
+</div>
+</section>
+<section class="design-section">
+  <img src="left.png" class="design-img left-slide">
+<div class="right-box">
+  <img src="right.png" class="design-img right-slide">
+  <div class="design-text fade-text">
+    <h2>철학적 디자인.</h2>
+    <p>• 기능적 무기능<br>
+     • 매트 블랙 알루미늄 바디<br>
+     • 무흠 디스플레이 (e-ink 기반)<br>
+     • 물리 다이얼<br>
+     • 시계라기보단, 가벼운 오브젝트에 <br>   가까운 존재감
+    </p>
+  </div>
+</div>
+</section>
+<section class="evidence-section black-bg">
+  <div class="wrap evidence-content">
+    <img src="hand-product.png" alt="Wake Roulette" class="evidence-img">
+    <div class="evidence-text fade-text">
+      <h2>울렸다는 증거는 없습니다.<br>하지만 당신은 <span>깼습니다.</span></h2>
+      <p>
+        기록은 없습니다. 소리도 없었습니다. Wake Roulette이 정말 울렸는지, 
+        <br>혹은 당신이 스스로 일어난 건지는 아무도 모릅니다.
+        하지만 눈을 뜨는 순간, 당신은 본능처럼 이렇게 말하게 됩니다.<br>
+    </p>
+    </div>
+    <div class="evidence-text fade-text"><p><br>“아... 얘가 울렸구나”</p></div>
+    <div class="evidence-text fade-text">
+      <p><br>그건 착각일 수도 있고, 마음 깊은 곳에서 스며든 믿음일 수도 있습니다.<br> 어쨌든, 당신은 일어났습니다. 그리고 그 순간, Wake Roulette은 ‘기능’을 해낸 셈입니다.<br><br>
+        울리지 않았지만, 일은 했습니다.<br>
+        그것이 Wake Roulette입니다.
+      </p>
+    </div>
+  </div>
+</section>
+<section class="black-bg"></section>
+<section class="black-bg"></section>
+<section class="product-display black-bg">
+  <img src="main-product.png" alt="Wake Roulette" class="product-main-img">
+  <div class="product-title" id="product">
+    <h2>3가지 버전. 모두 불확실.</h2>
+    <p>가격에 따라서 달라지는 확률</p>
+  </div>
+</section>
+<section class="product-options">
+  <div class="option">
+    <h1>Wake Roulette</h1>
+    <p>울릴 확률 : 20%<br>가격 : 89,000원</p>
+    <button class="buy-button">구매하기</button>
+  <ul class="spec-list">
+    <li>디스플레이: 0.0인치 e-ink 기반 비표시 디스플레이</li>
+    <li>알람 사운드: 없음 (정적 알람 기술 탑재)</li>
+    <li>버튼 수: 1개 (누르면 아무 일도 일어나지 않음)</li>
+    <li>전원: 인간의 의지 또는 착각</li>
+    <li>크기 및 무게: 작고 가벼움 (정확한 수치는 의미 없음)</li>
+    <li>호환성: 어떠한 기기와도 연동되지 않음</li>
+  </ul>
+  </div>
+  <div class="option">
+    <h1>Wake Roulette Pro</h1>
+    <p>울릴 확률 : 10%<br>가격 : 99,000원</p>
+    <button class="buy-button">구매하기</button>
+    <ul class="spec-list">
+      <li>디스플레이: e-ink 기반 ‘의심스러운 점’만 표시</li>
+      <li>알람 사운드: 간헐적 무음 (가끔 진짜 안 울림)</li>
+      <li>버튼 수: 1개 (누르면 자괴감이 느껴짐)</li>
+      <li>전원: 믿음 + 불안</li>
+      <li>크기 및 무게: 알 수 없음 (재는 순간 무의미해짐)</li>
+      <li>특이사항: 작동 원리를 설명하지 않음 (사실 우리도 모름)</li>
+  </ul>
+  </div>
+  <div class="option">
+    <h1>Wake Roulette Max</h1>
+    <p>울릴 확률 : 0%<br>가격 : 129,000원</p>
+    <button class="buy-button">구매하기</button>
+    <ul class="spec-list">
+      <li>디스플레이: 없음. 당신의 내면이 화면입니다.</li>
+      <li>알람 사운드: 0dB 절대침묵</li>
+      <li>버튼 수: 없음 (기대하지 마세요)</li>
+      <li>전원: 무의식 + 자발성</li>
+      <li>디자인: ‘존재하되 개입하지 않음’을 시각화</li>
+      <li>기능: 당신이 깨면 작동한 셈</li>
+    </ul>
+  </div>
+</section>
+<section class="black-bg spacer"></section>
+<section class="product-display black-bg">
+  <h1 class="product-title">“울리지 않을 수도 있지만, 사는 순간부터 당신은 이미 깨어 있는 사람입니다.”</h1>
+</section>
+<section class="black-bg spacer"></section>
+<footer class="footer-section">
+  <div class="footer-icons">
+    <img src="logo.png" alt="로고1" class="footer-logo">
+  </div>
+  <p class="footer-copy">© 2025 Silent Systems Inc. All rights reserved.</p>
+  <p class="footer-desc">
+    Silent Systems Inc.는 인간의 삶에서 ‘불확실성’과 ‘무의미’의 아름다움을 되찾기 위해 설립된 가상의 기술 집단입니다.<br>
+    우리는 알람을 울리지 않음으로써 당신의 자율성을 회복시키고, 의심과 착각, 정신승리의 미학을 디자인합니다.<br>
+    기계가 모든 것을 대신해주는 시대, 우리는 ‘기계가 아무것도 하지 않는’ 최초의 철학적 디바이스를 제안합니다.<br><br>
+    우리는 작동하지 않는 기술을 만듭니다. 하지만 당신은 분명히 작동하게 될 겁니다.<br><br>
+    주소 : 지구나라
+  </p>
+</footer>
+<script>
+  // 🔹 1. IntersectionObserver (텍스트 & 이미지 애니메이션)
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      } else {
+        entry.target.classList.remove('visible');  // 스크롤 올리면 사라지게
+      }
+    });
+  }, { threshold: 0.2 });
+
+ document.querySelectorAll('.fade-text, .fade-slide, .left-slide, .right-slide').forEach(el => observer.observe(el));
+
+  window.addEventListener('scroll', () => {
+    const section = document.querySelector('.light-section');
+    const overlay = document.querySelector('.light-overlay');
+    const rect = section.getBoundingClientRect();
+    
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      let scrollPercent = 1 - (rect.top / window.innerHeight);
+      scrollPercent = Math.min(Math.max(scrollPercent, 0), 1);
+      overlay.style.opacity = scrollPercent * 1; }
+  });
+</script>
+</body>
+</html>
+
+</body>
+</html>
